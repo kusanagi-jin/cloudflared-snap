@@ -1,6 +1,6 @@
 name: cloudflared
 base: core18
-version: "0.2"
+version: "0.1"
 summary: cloudflared for snap
 description: |
   enables you to use argo tunnel in snap based devices
@@ -26,20 +26,20 @@ plugs:
       - $HOME/.cloudflared/config.yml
 apps:
   cloudflared:
-    command: bin/cloudflared
+    command: /snap/bin/bin/cloudflared
     adapter: none
     plugs:
       - network
       - network-bind
       - config-cloudflared
   login:
-    command: bin/cloudflared tunnel login
+    command: /snap/bin/cloudflared tunnel login
     plugs:
       - network
       - network-bind
       - config-cloudflared
   tunnel:
-    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: /snap/bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
     restart-condition: always
     plugs:
