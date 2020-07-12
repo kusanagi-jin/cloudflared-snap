@@ -21,6 +21,7 @@ parts:
     stage-packages: [libstdc++6]
     override-build: |
       go install github.com/cloudflare/cloudflared/cmd/cloudflared
+      exit
 plugs:
   config-cloudflared:
     interface: personal-files
