@@ -37,7 +37,10 @@ apps:
       - config-cloudflared
   tunnel:
     command: bin/cloudflared tunnel --config $HOME/cloudflared-config/config.yml --origincert $HOME/cloudflared-config/cert.pem --no-autoupdate
-    daemon: simple
+    daemon: notify
+    restart-condition: on-failure
+    start-timeout: 10s
+    restart-delay: 10s
     plugs:
       - network
       - network-bind

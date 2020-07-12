@@ -13,6 +13,7 @@ snap install ./cloudflared_0.1_arm64.snap --dangerous
 
 sudo vi /snap/cloudflared/current/common/config.yml
 snap connect cloudflared:config-cloudflared
+snap connect cloudflared:daemon-notify
 snap start cloudflared.tunnel
 
 systemctl status snap.cloudflared.tunnel.service
