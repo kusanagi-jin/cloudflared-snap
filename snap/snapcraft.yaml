@@ -25,11 +25,11 @@ parts:
 plugs:
   config-cloudflared:
     interface: personal-files
-    read:
+    write:
       - $HOME/.cloudflared/cert.pem
       - $HOME/.cloudflared/config.yml
 apps:
-  cloudflared-snap:
+  cloudflared:
     command: bin/cloudflared
     adapter: none
     plugs:
@@ -43,7 +43,7 @@ apps:
       - network-bind
       - config-cloudflared
   tunnel:
-    command: bin/cloudflared tunnel --config $SNAP_COMMON/config.yml --origincert $SNAP_COMMON/cert.pem --no-autoupdate
+    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
     passthrough:
       watchdog-timeout: 10s

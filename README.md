@@ -7,8 +7,10 @@ cd cloudflared-snap
 snapcraft
 # snapcraft clean cloudflared -s build
 # snapcraft clean cloudflared -s pull
+exit
 snap install ./cloudflared_0.1_arm64.snap --dangerous
-sudo vi $HOME/.cloudflared/config.yml
+
+sudo vi /snap/cloudflared/current/common/config.yml
 snap connect cloudflared:config-cloudflared
 snap start cloudflared.tunnel
 
