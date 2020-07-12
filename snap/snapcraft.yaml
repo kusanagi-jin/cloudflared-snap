@@ -21,6 +21,8 @@ parts:
       make cloudflared
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
       mkdir -p $SNAPCRAFT_PART_INSTALL/common
+      cp $HOME/.coudlfared/cert.pem $SNAPCRAFT_PART_INSTALL/common
+      cp $HOME/.coudlfared/config.yml $SNAPCRAFT_PART_INSTALL/common
       mv cloudflared $SNAPCRAFT_PART_INSTALL/bin
 plugs:
   config-cloudflared:
@@ -38,10 +40,7 @@ apps:
   tunnel:
     command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
-    passthrough:
-      watchdog-timeout: 10s
     plugs:
       - network
       - network-bind
-      - daemon-notify
       - config-cloudflared
