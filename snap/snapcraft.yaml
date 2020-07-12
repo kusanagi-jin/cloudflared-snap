@@ -1,0 +1,31 @@
+name: cldoudflared
+base: core18
+version: "0.1"
+summary: cloudflared for snap
+description: |
+  enables you to use argo tunnel in snap based devices
+
+grade: stable
+confinement: strict
+
+parts:
+  cloudflared:
+    plugin: go
+    source: https://github.com/cloudflare/cloudflared.git
+    source-tag: "2020.7.1"
+    build-packages:
+      - gcc
+
+apps:
+  login:
+    command: cloudflared.git tunnel login
+    plugs:
+      - network
+      - network-bind
+  cloudflared-tunnel:
+    command: cloudflared.git  --config $SNAP_COMMON/config.yml --origincert $SNAP_COMMON/cert.pem --no-autoupdate
+    daemon: simple
+    restart-condition: always
+    plugs:
+      - network
+      - network-bind
