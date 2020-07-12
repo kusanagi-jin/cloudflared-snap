@@ -11,7 +11,9 @@ confinement: strict
 parts:
   cloudflared:
     plugin: go
-    source: https://github.com/cloudflare/cloudflared.git
+    go-importpath: github.com/cloudflare/cloudflared
+    source: .
+    source-type: git
     source-tag: "2020.7.1"
     build-packages:
       - gcc
