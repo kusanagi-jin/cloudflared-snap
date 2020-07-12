@@ -29,13 +29,6 @@ plugs:
       - $HOME/.cloudflared/cert.pem
       - $HOME/.cloudflared/config.yml
 apps:
-  cloudflared:
-    command: bin/cloudflared
-    adapter: none
-    plugs:
-      - network
-      - network-bind
-      - config-cloudflared
   login:
     command: bin/cloudflared tunnel login
     plugs:
