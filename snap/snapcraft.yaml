@@ -21,6 +21,12 @@ parts:
     stage-packages: [libstdc++6]
     override-build: |
       go install github.com/cloudflare/cloudflared/cmd/cloudflared
+plugs:
+  config-cloudflared:
+    interface: personal-files
+    read:
+      - $HOME/.cloudflared/cert.pem
+      - $HOME/.cloudflared/config.yml
 apps:
   login:
     command: cloudflared tunnel login
@@ -34,3 +40,4 @@ apps:
     plugs:
       - network
       - network-bind
+      - config-cloudflared
