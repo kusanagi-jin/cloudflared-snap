@@ -1,4 +1,4 @@
-name: cloudflared-snap
+name: cloudflared
 base: core18
 version: "0.1"
 summary: cloudflared for snap
@@ -20,6 +20,7 @@ parts:
     override-build: |
       make cloudflared
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      mkdir -p $SNAPCRAFT_PART_INSTALL/common
       mv cloudflared $SNAPCRAFT_PART_INSTALL/bin
 plugs:
   config-cloudflared:
@@ -42,7 +43,7 @@ apps:
       - network-bind
       - config-cloudflared
   tunnel:
-    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: bin/cloudflared tunnel --config $SNAP_COMMON/config.yml --origincert $SNAP_COMMON/cert.pem --no-autoupdate
     daemon: simple
     passthrough:
       watchdog-timeout: 10s
