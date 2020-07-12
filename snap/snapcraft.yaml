@@ -1,4 +1,4 @@
-name: cloudflared
+name: cloudflared-snap
 base: core18
 version: "0.1"
 summary: cloudflared for snap
@@ -19,10 +19,6 @@ parts:
     stage-packages: [libstdc++6]
     override-build: |
       make cloudflared
-      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-      cp $SNAPCRAFT_PART_SRC/cloudflared $SNAPCRAFT_PART_INSTALL/bin
-
-      exit
 plugs:
   config-cloudflared:
     interface: personal-files
@@ -31,20 +27,20 @@ plugs:
       - $HOME/.cloudflared/config.yml
 apps:
   cloudflared:
-    command: bin/cloudflared
+    command: cloudflared
     adapter: none
     plugs:
       - network
       - network-bind
       - config-cloudflared
   login:
-    command: bin/cloudflared tunnel login
+    command: cloudflared tunnel login
     plugs:
       - network
       - network-bind
       - config-cloudflared
   tunnel:
-    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
     passthrough:
       watchdog-timeout: 10s
