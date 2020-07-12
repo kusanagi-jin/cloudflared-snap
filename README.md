@@ -9,6 +9,7 @@ snapcraft
 # snapcraft clean cloudflared -s pull
 exit
 snap install ./cloudflared_0.1_arm64.snap --dangerous
+ sudo cloudflared.login
 
 sudo vi /snap/cloudflared/current/common/config.yml
 snap connect cloudflared:config-cloudflared

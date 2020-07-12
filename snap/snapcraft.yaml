@@ -25,8 +25,8 @@ plugs:
   config-cloudflared:
     interface: personal-files
     write:
-      - $HOME/.cloudflared/cert.pem
-      - $HOME/.cloudflared/config.yml
+      - $HOME/cloudflared-config/cert.pem
+      - $HOME/cloudflared-config/config.yml
 apps:
   login:
     command: bin/cloudflared tunnel login
@@ -36,7 +36,7 @@ apps:
       - home
       - config-cloudflared
   tunnel:
-    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: bin/cloudflared tunnel --config $HOME/cloudflared-config/config.yml --origincert $HOME/cloudflared-config/cert.pem --no-autoupdate
     daemon: simple
     plugs:
       - network
