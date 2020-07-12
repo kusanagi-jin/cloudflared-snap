@@ -26,22 +26,23 @@ plugs:
       - $HOME/.cloudflared/config.yml
 apps:
   cloudflared:
-    command: /snap/bin/bin/cloudflared
+    command: export SNAP=/snap && bin/cloudflared
     adapter: none
     plugs:
       - network
       - network-bind
       - config-cloudflared
   login:
-    command: /snap/bin/cloudflared tunnel login
+    command: export SNAP=/snap && bin/cloudflared tunnel login
     plugs:
       - network
       - network-bind
       - config-cloudflared
   tunnel:
-    command: /snap/bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: export SNAP=/snap && bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
     restart-condition: always
+    restart-delay: 10s
     plugs:
       - network
       - network-bind
