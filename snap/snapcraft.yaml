@@ -20,9 +20,6 @@ parts:
     override-build: |
       make cloudflared
       mkdir -p $SNAPCRAFT_PART_INSTALL/bin
-      mkdir -p $SNAPCRAFT_PART_INSTALL/common
-      cp $HOME/.coudlfared/cert.pem $SNAPCRAFT_PART_INSTALL/common
-      cp $HOME/.coudlfared/config.yml $SNAPCRAFT_PART_INSTALL/common
       mv cloudflared $SNAPCRAFT_PART_INSTALL/bin
 plugs:
   config-cloudflared:
@@ -36,6 +33,7 @@ apps:
     plugs:
       - network
       - network-bind
+      - home
       - config-cloudflared
   tunnel:
     command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
@@ -43,4 +41,5 @@ apps:
     plugs:
       - network
       - network-bind
+      - home
       - config-cloudflared
