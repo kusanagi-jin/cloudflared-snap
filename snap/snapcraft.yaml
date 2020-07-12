@@ -28,7 +28,7 @@ apps:
       - network
       - network-bind
   tunnel:
-    command: cloudflared --config $SNAP_COMMON/config.yml --origincert $SNAP_COMMON/cert.pem --no-autoupdate
+    command: cloudflared tunnel --config $SNAP_COMMON/config.yml --origincert $SNAP_COMMON/cert.pem --no-autoupdate
     daemon: simple
     restart-condition: always
     plugs:
