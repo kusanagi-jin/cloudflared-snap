@@ -1,6 +1,11 @@
 # cloudflared
 
-1. login
-2. copy cert.pem to snap common dir(`/var/snap/cloudflared/common`)
-3. write config file in the common dir
-4. start cloudflared-tunnel
+```sh
+snapcraft
+snap install ./cloudflared_0.1_arm64.snap --dangerous
+sudo cp ~/.cloudflared/cert.pem /var/snap/cloudflared/common
+# write config file in the common dir
+snap start cloudflared.tunnel
+
+systemctl status snap.cloudflared.tunnel.service
+```
