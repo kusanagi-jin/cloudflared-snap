@@ -13,7 +13,6 @@ architectures:
 parts:
   cloudflared:
     plugin: go
-    source: https://github.com/cloudflare/cloudflared.git
     go-importpath: github.com/cloudflare/cloudflared/cmd/cloudflared
     build-packages:
       - build-essential
