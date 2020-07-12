@@ -19,7 +19,10 @@ parts:
     stage-packages: [libstdc++6]
     override-build: |
       make cloudflared
-      cp cloudflared $SNAPCRAFT_PART_INSTALL
+      mkdir -p $SNAPCRAFT_PART_INSTALL/bin
+      cp $SNAPCRAFT_PART_SRC/cloudflared $SNAPCRAFT_PART_INSTALL/bin
+
+      exit
 plugs:
   config-cloudflared:
     interface: personal-files
