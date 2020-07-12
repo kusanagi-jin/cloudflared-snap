@@ -1,6 +1,6 @@
 name: cloudflared
 base: core18
-version: "0.1"
+version: "0.2"
 summary: cloudflared for snap
 description: |
   enables you to use argo tunnel in snap based devices
@@ -14,13 +14,10 @@ parts:
   cloudflared:
     plugin: go
     source: https://github.com/cloudflare/cloudflared.git
+    go-importpath: github.com/cloudflare/cloudflared/cmd/cloudflared
     build-packages:
-      - gcc
-      - g++
-      - make
+      - build-essential
     stage-packages: [libstdc++6]
-    override-build: |
-      make cloudflared
 plugs:
   config-cloudflared:
     interface: personal-files
@@ -28,13 +25,21 @@ plugs:
       - $HOME/.cloudflared/cert.pem
       - $HOME/.cloudflared/config.yml
 apps:
-  login:
-    command: cloudflared tunnel login
+  cloudflared:
+    command: bin/cloudflared
+    adapter: none
     plugs:
       - network
       - network-bind
+      - config-cloudflared
+  login:
+    command: bin/cloudflared tunnel login
+    plugs:
+      - network
+      - network-bind
+      - config-cloudflared
   tunnel:
-    command: cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
     restart-condition: always
     plugs:
