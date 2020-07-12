@@ -13,10 +13,13 @@ architectures:
 parts:
   cloudflared:
     plugin: go
-    go-importpath: github.com/cloudflare/cloudflared/cmd/cloudflared
+    source: https://github.com/cloudflare/cloudflared.git
     build-packages:
       - build-essential
     stage-packages: [libstdc++6]
+    override-build: |
+      make cloudflared
+      cp cloudflared $SNAPCRAFT_PART_INSTALL
 plugs:
   config-cloudflared:
     interface: personal-files
