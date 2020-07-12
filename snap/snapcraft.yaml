@@ -41,8 +41,8 @@ apps:
   tunnel:
     command: export SNAP=/snap && bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
-    watchdog-timeout: 10s
-    restart-condition: never
+    passthrough:
+      watchdog-timeout: 10s
     plugs:
       - network
       - network-bind
