@@ -30,21 +30,21 @@ plugs:
       - $HOME/.cloudflared/cert.pem
       - $HOME/.cloudflared/config.yml
 apps:
-  cloudflared:
-    command: cloudflared
+  cloudflared-snap:
+    command: bin/cloudflared
     adapter: none
     plugs:
       - network
       - network-bind
       - config-cloudflared
   login:
-    command: cloudflared tunnel login
+    command: bin/cloudflared tunnel login
     plugs:
       - network
       - network-bind
       - config-cloudflared
   tunnel:
-    command: cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
+    command: bin/cloudflared tunnel --config $HOME/.cloudflared/config.yml --origincert $HOME/.cloudflared/cert.pem --no-autoupdate
     daemon: simple
     passthrough:
       watchdog-timeout: 10s
